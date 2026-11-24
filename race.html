@@ -57,11 +57,13 @@ main{max-width:480px;margin:0 auto}
 .err{color:var(--red);font-size:14px;min-height:1.4em;margin:0 0 6px}
 
 /* garage */
-.bp{position:sticky;top:0;z-index:6;margin:-16px -16px 0;padding:0 16px 10px;background:linear-gradient(var(--night) 85%,rgba(10,20,48,0))}
+.bp{position:sticky;top:0;z-index:6;margin:-16px -16px 0;padding:0 16px 10px;background:var(--night);box-shadow:0 10px 14px -6px rgba(0,0,0,.55)}
 .bp-sheet{position:relative;height:178px;border:1px solid #2C4F8F;border-radius:0 0 14px 14px;overflow:hidden;
   background:#0B2350;background-image:linear-gradient(rgba(140,190,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(140,190,255,.10) 1px,transparent 1px),linear-gradient(rgba(140,190,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(140,190,255,.05) 1px,transparent 1px);
   background-size:40px 40px,40px 40px,8px 8px,8px 8px}
 .bp-sheet canvas{position:absolute;inset:0;width:100%;height:100%}
+.mus{position:absolute;left:8px;top:8px;z-index:2;width:38px;height:34px;border-radius:8px;border:1px solid #4E7BC4;background:rgba(11,35,80,.85);color:#CFE3FF;display:grid;place-items:center;cursor:pointer;touch-action:manipulation}
+.mus[aria-pressed="false"]{color:#5E77A8}
 .bp-stamp{position:absolute;right:10px;top:8px;font:600 11px var(--font-num);color:#8FB8F5;text-align:right;line-height:1.35;border:1px solid #4E7BC4;padding:3px 6px;border-radius:3px;background:rgba(11,35,80,.8)}
 .fuel{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-top:10px;font-size:13px;color:var(--muted)}
 .fuel .bar{height:12px;border-radius:6px;background:var(--deep);border:1px solid var(--line);overflow:hidden;position:relative}
@@ -99,6 +101,8 @@ main{max-width:480px;margin:0 auto}
 .track{position:relative;flex:1 1 auto;min-height:200px;background:#071022;overflow:hidden}
 .track canvas,.dash canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hud{position:absolute;left:12px;right:12px;top:8px;display:grid;grid-template-columns:1fr auto 1fr;align-items:start;pointer-events:none;color:#fff}
+.snd{pointer-events:auto;border:1px solid var(--line);background:rgba(6,13,34,.7);color:#fff;border-radius:10px;width:42px;height:38px;display:inline-grid;place-items:center;cursor:pointer;touch-action:manipulation}
+.snd[aria-pressed="false"]{color:var(--muted)}
 .hud .d{font:700 15px var(--font-num)}
 .hud .clock{font:700 24px var(--font-num);text-shadow:0 0 12px rgba(91,180,255,.5)}
 .spawn{position:absolute;left:12px;right:12px;top:44px;text-align:center;pointer-events:none;transition:opacity .4s}
@@ -136,6 +140,43 @@ main{max-width:480px;margin:0 auto}
 .slip .code span:last-child{letter-spacing:.2em;font-weight:700}
 .slip .foul{color:#B00020;text-align:center;font:800 26px var(--font-head);font-style:italic}
 .slip .pb{text-align:center;font:800 16px var(--font-head);font-style:italic;color:#0E6B37;margin-top:6px}
+
+.engbtn{margin-top:18px}
+.eng{margin:16px 0 0;display:grid;gap:14px}
+.eng .intro{font-size:14.5px;color:var(--muted);margin:0}
+.eng figure{margin:0;background:var(--deep);border:1px solid var(--line);border-radius:12px;padding:10px 10px 8px}
+.eng figure canvas{display:block;width:100%;height:190px}
+.eng figcaption{font-size:13px;color:var(--muted);margin-top:4px}
+.eng .key{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted);margin-top:4px}
+.eng .key i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.calc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.calc h3{font-size:16px;color:var(--gold2);margin:0 0 2px}
+.calc p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.calc .eq{font:600 17px var(--font-num);color:var(--text);margin:6px 0;display:flex;flex-wrap:wrap;align-items:center;gap:6px;line-height:1.3}
+.calc .eq.sub{font-weight:500;font-size:15px;color:#CFE3FF}
+.calc .eq.res{color:var(--gold2)}
+.calc .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle}
+.calc .frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px 2px}
+.calc .frac>span:last-child{padding:2px 4px 0}
+.calc sub{font-size:.7em}
+.calc .vars{margin:8px 0 0;font-size:13px;color:var(--muted);display:grid;grid-template-columns:auto 1fr;gap:2px 10px}
+.calc .vars b{font:600 13px var(--font-num);color:var(--text)}
+.calc .so{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:14.5px;color:var(--text)}
+.calc table{width:100%;border-collapse:collapse;font:500 14px var(--font-num);margin-top:6px}
+.calc td,.calc th{padding:4px 6px;text-align:right;border-bottom:1px solid var(--line)}
+.calc th{font:600 13px var(--font-body);color:var(--muted)}
+.calc td:first-child,.calc th:first-child{text-align:left}
+
+.read{margin-top:8px;font-size:14px;color:var(--text)}
+.read h4{margin:6px 0 4px;font:600 14.5px var(--font-head);color:var(--gold2)}
+.read dl{margin:0;display:grid;gap:6px}
+.read dt{font-weight:600}
+.read dd{margin:0 0 2px;color:var(--muted)}
+.read ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px}
+.read li{background:var(--panel);border-left:4px solid var(--gold);border-radius:8px;padding:8px 10px}
+.read li b{font-family:var(--font-head);color:var(--gold2)}
+.read li .fix{display:block;margin-top:4px;color:var(--text)}
+.read li .fix::before{content:"ลองปรับ: ";font-weight:600;color:var(--green)}
 .notes{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:10px}
 .notes h3{font-size:16px;margin:0 0 2px}
 .notes li{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:10px;padding:10px 12px;font-size:15px}
@@ -191,7 +232,7 @@ main{max-width:480px;margin:0 auto}
 
 <section class="screen" id="s-garage" hidden>
   <div class="bp">
-    <div class="bp-sheet"><canvas id="bp" aria-label="แบบร่างรถตามที่ออกแบบ"></canvas><div class="bp-stamp" id="bp-stamp"></div></div>
+    <div class="bp-sheet"><canvas id="bp" aria-label="แบบร่างรถตามที่ออกแบบ"></canvas><button class="mus" id="mus" type="button" aria-label="เปิดหรือปิดเพลง" aria-pressed="true"></button><div class="bp-stamp" id="bp-stamp"></div></div>
     <div class="fuel"><span>งบ</span><div class="bar" id="fuel"><i></i></div><span><b id="spent">0</b>/100</span></div>
   </div>
   <div id="parts"></div>
@@ -210,7 +251,7 @@ main{max-width:480px;margin:0 auto}
 
 <section class="screen race" id="s-race" hidden>
   <div class="track"><canvas id="cv"></canvas>
-    <div class="hud"><span class="d" id="hud-d">0 ม.</span><span class="clock" id="hud-t">0.000</span><span></span></div>
+    <div class="hud"><span class="d" id="hud-d">0 ม.</span><span class="clock" id="hud-t">0.000</span><span style="text-align:right"><button class="snd" id="snd" type="button" aria-label="เปิดหรือปิดเสียง" aria-pressed="true"></button></span></div>
     <div class="spawn" id="spawn"></div>
     <div class="msg" id="msg" aria-live="assertive"></div>
   </div>
@@ -224,6 +265,8 @@ main{max-width:480px;margin:0 auto}
   <div class="acts" style="margin-top:22px"><div class="row2"><button class="btn gold" id="save" type="button">บันทึกรูป</button><button class="btn ghost" id="share" type="button">แชร์</button></div>
     <p class="savehint" id="savehint" hidden>ถ้าไม่เห็นไฟล์ที่ดาวน์โหลด <button type="button" id="openimg">เปิดรูปแล้วกดค้างเพื่อบันทึก</button></p></div>
   <ul class="notes" id="notes"></ul>
+  <button class="btn ghost engbtn" id="engbtn" type="button" aria-expanded="false">โหมดจริงจัง: ดูการคำนวณ</button>
+  <div class="eng" id="eng" hidden></div>
   <div class="acts">
     <button class="btn ghost" id="again" type="button">วิ่งอีกรอบ</button>
     <button class="btn ghost" id="tune" type="button">กลับไปปรับรถ</button>
@@ -386,7 +429,7 @@ function show(id){cur=id;SCREENS.forEach(s=>$(s).hidden=s!==id);window.scrollTo(
   if(id==='s-race')startRace();else stopRace();
   if(id==='s-start')startHero();else stopHero();
   if(id==='s-result')startCard();else stopCard();
-  if(id==='s-garage'){renderGarage();}}
+  if(id==='s-garage'){renderGarage();setMusic(S.music);}else musicStop();}
 
 /* ================= start screen: a car spotlight that keeps respawning ================= */
 let heroRaf=0,heroLook=null,heroT=0,heroSwap=0;
@@ -430,7 +473,7 @@ function renderGarage(){
   const c=car(),vmax=g=>RED*2*Math.PI/60*RW/(GEARS[g]*c.FD)*3.6;
   const Fw=c.T*GEARS[0]*c.FD*ETA/RW,Fg=c.mu*c.M*G*0.6,pw=c.P/c.M*1000,Fa=0.5*RHO*c.CdA*Math.pow(200/3.6,2);
   const m=(lab,val,frac,col)=>`<div class="meter"><div class="l"><span>${lab}</span><b>${val}</b></div><div class="t"><i style="width:${Math.max(2,Math.min(100,frac*100)).toFixed(1)}%;background:${col}"></i></div></div>`;
-  const fmax=Math.max(Fw,Fg)*1.05;
+  const fmax=20000;
   $('meters').innerHTML=m('กำลังต่อน้ำหนัก',pw.toFixed(0)+' kW/ตัน',pw/300,'#F2B705')+
     m('แรงขับที่ล้อ ตอนออกตัวเกียร์ 1',Math.round(Fw).toLocaleString()+' N',Fw/fmax,'#FF4D5E')+
     m('แรงที่ยางยึดถนนไว้ได้ ตอนออกตัว',Math.round(Fg).toLocaleString()+' N',Fg/fmax,'#2BD67B')+
@@ -451,28 +494,196 @@ function drawBlueprint(){const cv=$('bp'),c=cv.getContext('2d'),d=DPR(),w=cv.cli
   c.strokeStyle='#8FB8F5';c.globalAlpha=.8;const n=[5,4,3][b.body];for(let i=0;i<n;i++){const y=gy-sh.h*ppm*(0.25+i*0.7/n),x0=gx+L/2+12;c.beginPath();c.moveTo(x0+36,y);c.lineTo(x0+8,y);c.stroke();c.beginPath();c.moveTo(x0+8,y);c.lineTo(x0+14,y-3);c.lineTo(x0+14,y+3);c.closePath();c.fillStyle='#8FB8F5';c.fill();}c.globalAlpha=1;
   c.textAlign='left';c.fillStyle='#8FB8F5';c.fillText('แบบร่าง ME-'+String(S.runs+1).padStart(3,'0'),10,h-8);}
 $('fd').addEventListener('input',e=>{S.fd=Math.round(+e.target.value*10)/10;save();renderGarage();});
-$('to-race').addEventListener('click',()=>show('s-race'));
+$('to-race').addEventListener('click',()=>{audioOn();show('s-race');});
+$('mus').addEventListener('click',()=>setMusic(!S.music));
+$('snd').addEventListener('click',e=>{e.stopPropagation();setSound(!S.sound);});
 addEventListener('resize',()=>{if(cur==='s-garage')drawBlueprint();});
+
+
+/* ================= engine sound, synthesised live (no audio files, no licensing) =================
+   Six-cylinder four-stroke: 3 firing pulses per crank revolution, so 7,000 rpm ≈ 350 Hz.
+   Sawtooth partials -> soft-clip distortion -> low-pass that opens with throttle; band-passed noise for tyre squeal. */
+let AC=null,SND=null;
+if(S.sound===undefined)S.sound=true;
+function distCurve(k){const n=1024,c=new Float32Array(n);for(let i=0;i<n;i++){const x=i*2/n-1;c[i]=(1+k)*x/(1+k*Math.abs(x));}return c;}
+function audioInit(){if(AC)return;const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+  try{if(navigator.audioSession)navigator.audioSession.type='playback';}catch(e){}
+  AC=new C();const master=AC.createGain();master.gain.value=0;master.connect(AC.destination);
+  const mix=AC.createGain();mix.gain.value=1;const sh=AC.createWaveShaper();sh.curve=distCurve(18);sh.oversample='2x';
+  const lp=AC.createBiquadFilter();lp.type='lowpass';lp.Q.value=5;lp.frequency.value=600;
+  const eng=AC.createGain();eng.gain.value=0;mix.connect(sh);sh.connect(lp);lp.connect(eng);eng.connect(master);
+  const osc=[['sawtooth',1,.5],['sawtooth',.5,.55],['square',2,.12],['sawtooth',1.5,.12]].map(([t,m,g])=>{const o=AC.createOscillator();o.type=t;const gg=AC.createGain();gg.gain.value=g;o.connect(gg);gg.connect(mix);o.start();return{o,m};});
+  /* rumble: amplitude wobble at half the firing rate */
+  const lfo=AC.createOscillator(),lfoG=AC.createGain();lfo.type='sine';lfoG.gain.value=.25;lfo.connect(lfoG);lfoG.connect(mix.gain);lfo.start();
+  const nb=AC.createBuffer(1,AC.sampleRate,AC.sampleRate),d=nb.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+  const ns=AC.createBufferSource();ns.buffer=nb;ns.loop=true;const bp=AC.createBiquadFilter();bp.type='bandpass';bp.frequency.value=2600;bp.Q.value=6;
+  const sq=AC.createGain();sq.gain.value=0;ns.connect(bp);bp.connect(sq);sq.connect(master);ns.start();
+  SND={master,eng,lp,osc,lfo,sq,nb};}
+function audioOn(){if(!S.sound)return;audioInit();if(AC&&AC.state!=='running')AC.resume().catch(()=>{});if(SND)SND.master.gain.setTargetAtTime(.55,AC.currentTime,.05);}
+function audioOff(){if(SND&&AC)SND.master.gain.setTargetAtTime(0,AC.currentTime,.08);}
+function audioTick(rpm,load,spin){if(!SND||!S.sound||AC.state!=='running')return;const t=AC.currentTime,f=Math.max(25,rpm/20);
+  SND.osc.forEach(x=>x.o.frequency.setTargetAtTime(f*x.m,t,.02));SND.lfo.frequency.setTargetAtTime(f*.5,t,.03);
+  SND.lp.frequency.setTargetAtTime(350+rpm*(.12+.33*load),t,.03);SND.eng.gain.setTargetAtTime(.10+.22*load,t,.03);
+  SND.sq.gain.setTargetAtTime(spin?.16:0,t,.06);}
+function backfire(){if(!SND||!S.sound||AC.state!=='running')return;const t=AC.currentTime,s=AC.createBufferSource();s.buffer=SND.nb;
+  const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=900;const g=AC.createGain();g.gain.setValueAtTime(.6,t);g.gain.exponentialRampToValueAtTime(.001,t+.18);
+  s.connect(f);f.connect(g);g.connect(SND.master);s.start(t,Math.random()*.5,.2);}
+function setSound(on){S.sound=on;save();const b=$('snd');if(b){b.setAttribute('aria-pressed',String(on));b.innerHTML=on?SPK_ON:SPK_OFF;}if(on&&cur==='s-race')audioOn();else audioOff();}
+const SPK_ON='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const SPK_OFF='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+/* ================= garage music: an original electronic loop, synthesised live =================
+   Written for this game (A minor, Am–F–C–G, 124 BPM, 32 bars ≈ 62 s, then repeats). No samples, no borrowed melodies. */
+let MUS=null;
+if(S.music===undefined)S.music=true;
+const BPM=124,SPB=60/BPM/4,BARS=32;
+const CHORD=[{b:45,pad:[57,60,64],arp:[57,60,64,69]},{b:41,pad:[57,60,65],arp:[53,57,60,65]},{b:48,pad:[55,60,64],arp:[55,60,64,67]},{b:43,pad:[55,59,62],arp:[55,59,62,67]}];
+const SECT=[].concat(Array(4).fill('intro'),Array(8).fill('A'),Array(8).fill('B'),Array(4).fill('brk'),Array(8).fill('A2'));
+const MEL=[[[0,69,3],[4,72,2],[6,76,2],[8,74,4],[12,72,2],[14,71,2]],[[0,69,6],[6,67,2],[8,69,4],[12,72,4]],
+  [[0,67,3],[4,76,2],[6,79,4],[10,76,2],[12,74,4]],[[0,74,4],[4,71,2],[6,74,2],[8,76,8]]];
+const MEL_END=[[0,79,4],[4,76,2],[6,74,2],[8,72,4],[12,71,4]];
+const mtof=m=>440*Math.pow(2,(m-69)/12);
+function musicInit(){audioInit();if(!AC||MUS)return;
+  const out=AC.createGain();out.gain.value=0;const comp=AC.createDynamicsCompressor();comp.threshold.value=-18;out.connect(comp);comp.connect(AC.destination);
+  const duck=AC.createGain();duck.connect(out);
+  const dly=AC.createDelay(1);dly.delayTime.value=SPB*3;const fb=AC.createGain();fb.gain.value=.3;const dlp=AC.createBiquadFilter();dlp.type='lowpass';dlp.frequency.value=2400;
+  dly.connect(dlp);dlp.connect(fb);fb.connect(dly);dlp.connect(out);
+  MUS={out,duck,dly,step:0,next:0,timer:0,on:false};}
+function voice(type,m,t,dur,vol,dest,cut,att,det){const o=AC.createOscillator();o.type=type;o.frequency.value=mtof(m);if(det)o.detune.value=det;
+  const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=cut||2000;const g=AC.createGain();const a=att||.005;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+a);g.gain.setTargetAtTime(0,t+Math.max(a,dur*.7),dur*.25+.02);
+  o.connect(f);f.connect(g);(Array.isArray(dest)?dest:[dest]).forEach(d=>g.connect(d));o.start(t);o.stop(t+dur+.6);return f;}
+function noiseHit(t,dur,vol,type,freq,q){const s=AC.createBufferSource();s.buffer=SND.nb;const f=AC.createBiquadFilter();f.type=type;f.frequency.value=freq;if(q)f.Q.value=q;
+  const g=AC.createGain();g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);s.connect(f);f.connect(g);g.connect(MUS.out);s.start(t,Math.random()*.5,dur+.05);}
+function kick(t){const o=AC.createOscillator(),g=AC.createGain();o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(45,t+.12);
+  g.gain.setValueAtTime(.9,t);g.gain.exponentialRampToValueAtTime(.001,t+.28);o.connect(g);g.connect(MUS.out);o.start(t);o.stop(t+.3);
+  MUS.duck.gain.setValueAtTime(.35,t);MUS.duck.gain.linearRampToValueAtTime(1,t+.2);}
+function schedule(step,t){const bar=Math.floor(step/16)%BARS,s=step%16,sec=SECT[bar],ch=CHORD[bar%4],full=sec==='A'||sec==='B'||sec==='A2';
+  if(s===0)ch.pad.forEach((m,i)=>voice('sawtooth',m,t,SPB*16,.045,MUS.duck,sec==='intro'?600:950,.35,i*5-5));
+  if(full&&s%4===0)kick(t);
+  if(full&&(s===4||s===12))noiseHit(t,.14,.45,'bandpass',1600,.8);
+  if(sec==='intro'?s%4===2:s%2===0)noiseHit(t,.035,.16,'highpass',7500);
+  if(sec==='A2'&&s%4===2)noiseHit(t,.16,.1,'highpass',6500);
+  if(full&&s%2===0)voice('sawtooth',ch.b+(s===6||s===14?12:0),t,SPB*1.7,.32,MUS.duck,520);
+  if(sec!=='brk'||s%2===0)voice('square',ch.arp[s%4]+(sec==='brk'?12:0),t,SPB*.9,sec==='intro'?.035:.055,[MUS.out,MUS.dly],sec==='intro'?900:1900);
+  const lead=sec==='B'||sec==='A2'||(sec==='brk'&&bar<22);
+  if(lead){const ph=(sec==='A2'&&bar===BARS-1)?MEL_END:MEL[bar%4];ph.forEach(([st,m,len])=>{if(st===s){const v=sec==='brk'?.05:.09;
+    voice('sawtooth',m,t,SPB*len,v,[MUS.out,MUS.dly],2300,.01,-7);voice('sawtooth',m,t,SPB*len,v,MUS.out,2300,.01,7);}});}}
+function musicStart(){if(!S.music)return;musicInit();if(!MUS)return;if(AC.state!=='running')AC.resume().catch(()=>{});if(MUS.on)return;MUS.on=true;
+  MUS.next=AC.currentTime+.08;MUS.out.gain.cancelScheduledValues(AC.currentTime);MUS.out.gain.setTargetAtTime(.13,AC.currentTime,1.2);clearInterval(MUS.timer);
+  MUS.timer=setInterval(()=>{if(!MUS.on)return;while(MUS.next<AC.currentTime+.15){schedule(MUS.step,MUS.next);MUS.next+=SPB;MUS.step=(MUS.step+1)%(BARS*16);}},25);}
+function musicStop(){if(!MUS||!MUS.on)return;MUS.on=false;MUS.out.gain.setTargetAtTime(0,AC.currentTime,.15);const tm=MUS.timer;setTimeout(()=>clearInterval(tm),700);}
+function setMusic(on){S.music=on;save();const b=$('mus');if(b){b.setAttribute('aria-pressed',String(on));b.innerHTML=on?NOTE_ON:NOTE_OFF;}if(on&&cur==='s-garage')musicStart();else musicStop();}
+const NOTE_ON='<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="17.5" cy="16" r="2.5" fill="currentColor"/></svg>';
+const NOTE_OFF='<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="17.5" cy="16" r="2.5" fill="currentColor"/><path d="M3 3l18 18" stroke="currentColor" stroke-width="2.2"/></svg>';
+document.addEventListener('visibilitychange',()=>{if(!AC)return;if(document.hidden)AC.suspend().catch(()=>{});else if(cur==='s-garage'||cur==='s-race')AC.resume().catch(()=>{});});
+
+/* ================= engineer mode: show the maths behind the run ================= */
+const n0=v=>Math.round(v).toLocaleString('en-US'),n1=v=>v.toFixed(1),n2=v=>v.toFixed(2);
+const frac=(a,b)=>`<span class="frac"><span>${a}</span><span>${b}</span></span>`;
+function engHTML(r){const c=r.c,L=r.log,m=c.M,g=G,GN=graphNotes(r);
+  const peak=c.T,Fw=peak*GEARS[0]*c.FD*ETA/RW;
+  const s0=L.find(q=>q[2]>0.5)||L[0];const a0=s0[10],N0=m*g*0.5+m*a0*0.2,Fm0=c.mu*N0;
+  const s100=L.reduce((b,q)=>Math.abs(q[2]-27.78)<Math.abs(b[2]-27.78)?q:b,L[0]);
+  const vf=r.v,Fa=0.5*RHO*c.CdA*vf*vf,Pf=Fa*vf/1000;
+  const vmax=i=>RED*2*Math.PI/60*RW/(GEARS[i]*c.FD);
+  let h=`<p class="intro">ทุกอย่างในเกมนี้คำนวณด้วยสมการด้านล่าง ทีละ 0.002 วินาที ประมาณ 6,000 ครั้งต่อรอบ ตัวเลขทั้งหมดมาจากรถและรอบที่คุณเพิ่งวิ่ง</p>`;
+  h+=`<figure><canvas id="ch-v"></canvas><div class="read"><h4>อ่านกราฟนี้</h4>${GN.vNote}</div></figure>`;
+  h+=`<figure><canvas id="ch-f"></canvas><div class="key"><span><i style="background:#FF4D5E"></i>แรงที่เครื่องส่งมาที่ล้อ</span><span><i style="background:#2BD67B"></i>แรงที่ยางยึดถนนได้สูงสุด</span><span><i style="background:#5BB4FF"></i>แรงต้านอากาศ</span></div><div class="read"><h4>อ่านกราฟนี้</h4><dl>${GN.read.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl><h4>จากกราฟของคุณ</h4><ul>${GN.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div></figure>`;
+  h+=`<div class="calc"><h3>1. แรงจากเครื่องยนต์ไปถึงล้อ</h3><p>แรงบิดของเครื่องถูกขยายด้วยเกียร์และเฟืองท้าย แล้วหารด้วยรัศมีล้อจึงกลายเป็นแรงผลักถนน</p>
+    <div class="eq">F<sub>ล้อ</sub> = ${frac('T × i<sub>g</sub> × i<sub>f</sub> × η','r')}</div>
+    <div class="eq sub">= ${frac(`${n0(peak)} × ${GEARS[0]} × ${n1(c.FD)} × ${ETA}`,`${RW}`)}</div>
+    <div class="eq res">= ${n0(Fw)} N <span style="font:500 13px var(--font-body);color:var(--muted)">(เกียร์ 1)</span></div>
+    <div class="vars"><b>T</b><span>แรงบิดสูงสุดของเครื่อง (N·m) ได้จากกำลัง ${c.P} kW</span><b>i<sub>g</sub></b><span>อัตราทดเกียร์ 1</span><b>i<sub>f</sub></b><span>อัตราทดเฟืองท้ายที่คุณเลือก</span><b>η</b><span>ประสิทธิภาพการส่งกำลัง (ส่วนที่เหลือเสียเป็นความร้อน)</span><b>r</b><span>รัศมีล้อ (m)</span></div></div>`;
+  h+=`<div class="calc"><h3>2. แรงที่ยางยึดถนนได้</h3><p>ยางส่งแรงได้ไม่เกินค่าสัมประสิทธิ์แรงเสียดทานคูณแรงกดบนล้อขับ ตอนเร่ง น้ำหนักถ่ายไปล้อหลังเพิ่ม</p>
+    <div class="eq">F<sub>สูงสุด</sub> = μ × N</div>
+    <div class="eq">N = ½mg + 0.2ma</div>
+    <div class="eq sub">N = ½(${n0(m)})(9.81) + 0.2(${n0(m)})(${n1(a0)}) = ${n0(N0)} N</div>
+    <div class="eq res">F<sub>สูงสุด</sub> = ${n1(c.mu)} × ${n0(N0)} = ${n0(Fm0)} N</div>
+    <div class="so">${Fw>Fm0?`แรงจากเครื่อง ${n0(Fw)} N มากกว่าที่ยางรับได้ ${n0(Fm0)} N ล้อจึงฟรีตอนออกตัว รถเร่งได้แค่ตามแรงยึดเกาะ ไม่ใช่ตามแรงเครื่อง`:`แรงจากเครื่อง ${n0(Fw)} N น้อยกว่าที่ยางรับได้ ${n0(Fm0)} N ล้อจึงไม่ฟรี แรงทั้งหมดใช้เร่งรถได้`}</div></div>`;
+  h+=`<div class="calc"><h3>3. กฎข้อที่สองของนิวตัน</h3><p>ความเร่งมาจากแรงลัพธ์ คือแรงขับลบแรงต้านทั้งหมด หารด้วยมวล ตัวอย่างนี้คือตอนรถวิ่ง ${n0(s100[2]*3.6)} km/h ในเกียร์ ${s100[3]+1}</p>
+    <div class="eq">a = ${frac('F<sub>ขับ</sub> − F<sub>อากาศ</sub> − F<sub>ยาง</sub>','m')}</div>
+    <div class="eq sub">= ${frac(`${n0(s100[8])} − ${n0(s100[6])} − ${n0(s100[7])}`,`${n0(m)}`)}</div>
+    <div class="eq res">= ${n2((s100[8]-s100[6]-s100[7])/m)} m/s² <span style="font:500 13px var(--font-body);color:var(--muted)">(≈ ${n2((s100[8]-s100[6]-s100[7])/m/g)} g)</span></div>
+    <div class="vars"><b>F<sub>ยาง</sub></b><span>แรงต้านการหมุนของยาง = C<sub>rr</sub>mg = ${c.crr} × ${n0(m)} × 9.81</span></div></div>`;
+  h+=`<div class="calc"><h3>4. แรงต้านอากาศที่เส้นชัย</h3><p>แรงต้านอากาศเพิ่มตามความเร็วยกกำลังสอง ขับเร็วขึ้นสองเท่า แรงต้านเพิ่มสี่เท่า</p>
+    <div class="eq">F<sub>อากาศ</sub> = ½ ρ C<sub>d</sub>A v²</div>
+    <div class="eq sub">= ½ × ${RHO} × ${n2(c.CdA)} × (${n1(vf)})²</div>
+    <div class="eq res">= ${n0(Fa)} N</div>
+    <div class="vars"><b>ρ</b><span>ความหนาแน่นอากาศ (kg/m³)</span><b>C<sub>d</sub>A</b><span>ค่าแรงต้านคูณพื้นที่หน้ารถ (m²) จากตัวถังที่เลือก</span><b>v</b><span>ความเร็วที่เส้นชัย ${n0(vf*3.6)} km/h = ${n1(vf)} m/s</span></div>
+    <div class="so">แค่เอาชนะแรงต้านอากาศอย่างเดียวที่ความเร็วนี้ก็ต้องใช้กำลัง P = F<sub>อากาศ</sub> × v = ${n0(Pf)} kW จากเครื่อง ${c.P} kW</div></div>`;
+  h+=`<div class="calc"><h3>5. ความเร็วสูงสุดของแต่ละเกียร์</h3><p>ที่รอบเครื่อง 7,000 รอบ/นาที ล้อหมุนเร็วเท่าไรขึ้นกับอัตราทดรวม</p>
+    <div class="eq">v = ${frac('ω<sub>เครื่อง</sub> × r','i<sub>g</sub> × i<sub>f</sub>')}</div>
+    <div class="eq sub">ω<sub>เครื่อง</sub> = 7,000 × ${frac('2π','60')} = 733 rad/s</div>
+    <table><tr><th>เกียร์</th><th>i<sub>g</sub> × i<sub>f</sub></th><th>m/s</th><th>km/h</th></tr>${GEARS.map((x,i)=>`<tr><td>${i+1}</td><td>${n2(x*c.FD)}</td><td>${n1(vmax(i))}</td><td>${n0(vmax(i)*3.6)}</td></tr>`).join('')}</table>
+    <div class="so">${vmax(4)*3.6<vf*3.6+3?`เกียร์ 5 ไปได้ ${n0(vmax(4)*3.6)} km/h ใกล้กับความเร็วที่เส้นชัย รถจึงชนรอบสูงสุดก่อนถึงเส้นชัย`:`เกียร์ 5 ไปได้ถึง ${n0(vmax(4)*3.6)} km/h ส่วนรถเข้าเส้นชัยที่ ${n0(vf*3.6)} km/h ยังมีรอบเหลือ`}</div></div>`;
+  h+=`<button class="btn gold" id="engsave" type="button">บันทึกรูปการคำนวณ (รูปยาวรูปเดียว)</button>`;
+  return h;}
+function drawChart(c,x0,y0,w,h,series,opt,k){k=k||1;const L=40*k,Rr=10*k,T=14*k,B=26*k,X=v=>x0+L+(v-opt.x0)/(opt.x1-opt.x0)*(w-L-Rr),Y=v=>y0+h-B-(v-opt.y0)/(opt.y1-opt.y0)*(h-T-B);
+  c.save();c.strokeStyle='#2A3F72';c.lineWidth=k;c.fillStyle='#9DB0D6';c.font=`500 ${11*k}px "IBM Plex Mono", monospace`;
+  opt.yt.forEach(v=>{c.beginPath();c.moveTo(x0+L,Y(v));c.lineTo(x0+w-Rr,Y(v));c.stroke();c.textAlign='right';c.fillText(opt.yf(v),x0+L-4*k,Y(v)+4*k);});
+  opt.xt.forEach(v=>{c.textAlign='center';c.fillText(v+(opt.xu||''),X(v),y0+h-B+15*k);});
+  c.textAlign='left';c.fillText(opt.ylab,x0+L+4*k,y0+T+10*k);
+  if(opt.pre)opt.pre(c,X,Y,y0+h,y0+T,B,k);
+  series.forEach(s=>{c.strokeStyle=s.col;c.lineWidth=2.2*k;c.beginPath();let pen=false;s.pts.forEach(p=>{if(p[1]==null){pen=false;return;}pen?c.lineTo(X(p[0]),Y(p[1])):c.moveTo(X(p[0]),Y(p[1]));pen=true;});c.stroke();});c.restore();}
+function chart(id,series,opt){const cv=$(id);if(!cv)return;const c=cv.getContext('2d'),d=DPR(),w=cv.clientWidth,h=cv.clientHeight;cv.width=w*d;cv.height=h*d;c.setTransform(d,0,0,d,0,0);drawChart(c,0,0,w,h,series,opt,1);}
+function chartSpecs(r){const L=r.log,tEnd=r.t;
+  const shifts=[];for(let i=1;i<L.length;i++)if(L[i][3]!==L[i-1][3])shifts.push([L[i][0],L[i][3]+1]);
+  const vtop=Math.ceil(Math.max(...L.map(q=>q[2]))*3.6/50)*50,xt=[0,2,4,6,8,10,12,14].filter(v=>v<=tEnd);
+  const fmax=Math.max(...L.map(q=>Math.max(q[4],q[5])))*1.05;
+  return{v:[[{col:'#FFD54A',pts:L.map(q=>[q[0],q[2]*3.6])}],{x0:0,x1:tEnd,y0:0,y1:vtop,xt,xu:' s',yt:[0,50,100,150,200,250,300].filter(v=>v<=vtop),yf:v=>v,ylab:'km/h',
+    pre:(cx,X,Y,yb,yt,B,k)=>{cx.setLineDash([4*k,4*k]);cx.strokeStyle='#5E77A8';cx.lineWidth=k;shifts.forEach(([t,gn])=>{cx.beginPath();cx.moveTo(X(t),yt);cx.lineTo(X(t),yb-B);cx.stroke();cx.fillStyle='#9DB0D6';cx.fillText('G'+gn,X(t)+3*k,yt+24*k);});cx.setLineDash([]);}}],
+    f:[[{col:'#2BD67B',pts:L.map(q=>[q[0],q[5]])},{col:'#5BB4FF',pts:L.map(q=>[q[0],q[6]])},{col:'#FF4D5E',pts:L.map(q=>[q[0],q[4]>0?q[4]:null])}],
+    {x0:0,x1:tEnd,y0:0,y1:fmax,xt,xu:' s',yt:[0,5000,10000,15000,20000].filter(v=>v<=fmax),yf:v=>v/1000+'k',ylab:'แรง (N)',
+     pre:(cx,X,Y,yb,yt,B)=>{cx.fillStyle='rgba(255,77,94,.16)';L.forEach((q,i)=>{if(q[4]>q[5]&&i>0)cx.fillRect(X(L[i-1][0]),yt,X(q[0])-X(L[i-1][0])+.5,yb-B-yt);});}}]};}
+function drawEngCharts(r){const s=chartSpecs(r);chart('ch-v',s.v[0],s.v[1]);chart('ch-f',s.f[0],s.f[1]);}
+/* plain-language reading of the two graphs, worked out from this run */
+function graphNotes(r){const L=r.log,run=L.filter(q=>q[4]>0),sel=S.sel;
+  const spin=L.filter(q=>q[4]>q[5]),spinT=spin.length*0.02,spinG=[...new Set(spin.map(q=>q[3]+1))];
+  const avg=a=>a.length?a.reduce((s,v)=>s+v,0)/a.length:0;
+  const m1=avg(run.filter(q=>q[3]===0).map(q=>(q[5]-q[4])/q[5])),mHi=avg(run.filter(q=>q[3]>=1).map(q=>(q[5]-q[4])/q[5]));
+  const last=run[run.length-1]||L[L.length-1],drag=last[6]/Math.max(1,last[4]);
+  const ns=r.shifts.length;
+  const vNote=`ความชันของเส้นคือความเร่ง ยิ่งชันยิ่งเร่งแรง ช่วงที่เส้นแบนราบตรงเส้นประคือตอนเปลี่ยนเกียร์ ซึ่งไม่มีแรงขับเลย รอบนี้เปลี่ยน ${ns} ครั้ง เสียไปราว ${(ns*SHIFT_T).toFixed(1)} วินาที ส่วนเส้นที่ค่อย ๆ ชันน้อยลงเป็นเพราะเกียร์สูงทดแรงน้อยลง และอากาศต้านมากขึ้นเมื่อรถเร็วขึ้น`;
+  const read=[
+    ['เส้นแดงสูงกว่าเส้นเขียว (แถบแดงจาง)','เครื่องส่งแรงมามากกว่าที่ยางรับไหว ล้อจึงฟรี รถเร่งได้แค่เท่าเส้นเขียว แรงส่วนเกินกลายเป็นควันยาง'],
+    ['เส้นแดงต่ำกว่าเส้นเขียว','ยางยังรับแรงได้อีก แรงจากเครื่องถูกใช้เร่งรถทั้งหมด ช่องว่างระหว่างสองเส้นคือแรงยึดเกาะที่ยังเหลือ ไม่ได้ใช้'],
+    ['เส้นแดงลดลงเป็นขั้นตอนเปลี่ยนเกียร์','เกียร์สูงทดแรงน้อยลง แรงที่ล้อจึงลดลง แลกกับการที่รถไปได้เร็วขึ้นในเกียร์นั้น'],
+    ['เส้นเขียวตกลงตอนเปลี่ยนเกียร์','ตอนไม่มีแรงขับ รถไม่ได้เร่ง น้ำหนักไม่ถ่ายไปล้อหลัง แรงกดล้อหลังจึงลดลงชั่วครู่'],
+    ['เส้นฟ้าโค้งขึ้นเรื่อย ๆ','แรงต้านอากาศเพิ่มตามความเร็วยกกำลังสอง ระยะห่างระหว่างเส้นแดงกับเส้นฟ้าคือแรงที่เหลือไว้เร่งรถ']];
+  const tips=[];
+  if(spinT>0.3)tips.push(`<b>ล้อฟรีรวม ${spinT.toFixed(1)} วินาที</b> ในเกียร์ ${spinG.join(', ')} (แถบแดงจาง)`+
+    `<span class="fix">ลดอัตราทดเฟืองท้ายทีละ 0.2 จนเส้นแดงช่วงออกตัวลงมาชิดเส้นเขียว${sel.tyre<2?' หรือเปลี่ยนยางให้หนึบขึ้น เส้นเขียวจะยกขึ้นทั้งเส้น':''}</span>`);
+  else if(m1>0.15)tips.push(`<b>ตอนออกตัว เส้นแดงต่ำกว่าเส้นเขียวราว ${Math.round(m1*100)}%</b> ยางยังรับแรงได้อีกมาก`+
+    `<span class="fix">เพิ่มอัตราทดเฟืองท้าย${sel.eng<4?' หรือเพิ่มเครื่อง':''} ให้เส้นแดงขึ้นไปชิดเส้นเขียว${sel.tyre>0?' หรือถ้าเหลือมากจริง ๆ ลดเกรดยางลงแล้วย้ายแต้มไปที่อื่น':''}</span>`);
+  else tips.push(`<b>ตอนออกตัว เส้นแดงชิดเส้นเขียวพอดี</b> ใช้แรงยึดเกาะของยางเกือบเต็ม นี่คือจุดที่ดี<span class="fix">ช่วงออกตัวไม่ต้องแก้แล้ว ไปดูช่วงอื่นของกราฟแทน</span>`);
+  if(mHi>0.3)tips.push(`<b>เกียร์ 2 ขึ้นไป เส้นแดงต่ำกว่าเส้นเขียวราว ${Math.round(mHi*100)}%</b> ช่วงนี้ยางไม่ใช่ข้อจำกัดแล้ว กำลังเครื่องต่างหาก`+
+    `<span class="fix">${sel.eng<4||sel.mass<4?'เพิ่มกำลังต่อน้ำหนัก ด้วยเครื่องที่แรงขึ้นหรือรถที่เบาลง':'เครื่องและน้ำหนักสุดทางแล้ว ลองปรับเฟืองท้ายหรือตัวถังแทน'}</span>`);
+  if(drag>0.22&&sel.body<2)tips.push(`<b>ช่วงท้ายสนาม เส้นฟ้าสูงถึง ${Math.round(drag*100)}% ของเส้นแดง</b> อากาศกินแรงขับไปมาก`+
+    `<span class="fix">เปลี่ยนตัวถังให้ลู่ลมขึ้น เส้นฟ้าจะต่ำลง</span>`);
+  return{vNote,read,tips:tips.slice(0,3)};}
 
 /* ================= race physics ================= */
 let R=null,raf=0,lastT=0;
 function newRun(){const c=car();return{c,b:buildOf(S.sel),look:spawnLook(),x:0,v:0,a:0,g:0,sh:0,lim:false,rpm:1000,spin:false,spinT:0,limT:0,limT5:0,shifts:[],
-  phase:'stage',ph:0,greenAt:1.9+1.0+0.4+Math.random()*0.35,tree:0,react:null,t:0,t100:null,t200:null,v200:null,smoke:[],wheel:0,done:false,flame:0,shake:0,Fw5:0};}
+  phase:'stage',ph:0,greenAt:1.9+1.0+0.4+Math.random()*0.35,tree:0,react:null,t:0,t100:null,t200:null,v200:null,smoke:[],wheel:0,done:false,flame:0,shake:0,Fw5:0,log:[],lt:0};}
 function step(r,dt){const c=r.c;
   const wrpm=r.v/RW*GEARS[r.g]*c.FD*60/(2*Math.PI),clutch=r.g===0&&wrpm<CLUTCH;
   const rpm=clutch?CLUTCH:wrpm;if(rpm>=LIM)r.lim=true;if(rpm<LIM-100)r.lim=false;
   let Fd=0;
   if(r.sh>0){r.sh-=dt;}else{const Te=r.lim?0:c.T*torqueFrac(rpm)*(clutch?0.95:1);Fd=Te*GEARS[r.g]*c.FD*ETA/RW;}
-  const N=c.M*G*0.5+c.M*r.a*0.2,Fm=c.mu*N;r.spin=Fd>Fm;if(r.spin){Fd=0.9*Fm;r.spinT+=dt;}
+  const Fraw=Fd,N=c.M*G*0.5+c.M*r.a*0.2,Fm=c.mu*N;r.spin=Fd>Fm;if(r.spin){Fd=0.9*Fm;r.spinT+=dt;}
   if(r.lim){r.limT+=dt;if(r.g===4)r.limT5+=dt;}
   if(r.g===4&&Fd>0)r.Fw5=Fd;
-  const F=Fd-0.5*RHO*c.CdA*r.v*r.v-c.crr*c.M*G;r.a=F/c.M;r.v=Math.max(0,r.v+r.a*dt);r.x+=r.v*dt;r.t+=dt;
+  const Fa=0.5*RHO*c.CdA*r.v*r.v,Fr=c.crr*c.M*G,F=Fd-Fa-Fr;
+  r.lt+=dt;if(r.lt>=0.02){r.lt=0;r.log.push([r.t,r.x,r.v,r.g,Fraw,Fm,Fa,Fr,Fd,N,r.a]);}
+  r.a=F/c.M;r.v=Math.max(0,r.v+r.a*dt);r.x+=r.v*dt;r.t+=dt;
   r.rpm=r.spin&&r.g<2?Math.min(LIM,rpm+600):rpm;
   if(r.t100==null&&r.v>=100/3.6)r.t100=r.t;
   if(r.t200==null&&r.x>=200){r.t200=r.t;r.v200=r.v;}
   if(r.x>=DIST)r.done=true;}
 const buzz=ms=>{try{navigator.vibrate&&navigator.vibrate(ms);}catch(e){}};
-function shift(){if(!R||R.phase!=='run'||R.g>=4||R.sh>0)return;R.shifts.push(Math.round(R.rpm));R.g++;R.sh=SHIFT_T;R.flame=0.22;buzz(12);updateBtn();}
+function shift(){if(!R||R.phase!=='run'||R.g>=4||R.sh>0)return;R.shifts.push(Math.round(R.rpm));R.g++;R.sh=SHIFT_T;R.flame=0.22;buzz(12);backfire();updateBtn();}
 
 /* ================= race flow ================= */
 const act=$('act');
@@ -482,7 +693,7 @@ function updateBtn(){if(!R)return;
   else if(R.phase==='run'){if(R.g<4){act.disabled=false;act.className='act shift';act.innerHTML=`เปลี่ยนเกียร์<small>ขึ้นเกียร์ ${R.g+2}</small>`;}
     else{act.disabled=true;act.className='act';act.innerHTML='เกียร์ 5<small>เกียร์สุดท้าย ลุยถึงเส้นชัย</small>';}}
   else{act.disabled=true;act.className='act';act.textContent='จบรอบ';}}
-function press(e){if(e)e.preventDefault();if(!R)return;
+function press(e){if(e)e.preventDefault();if(!R)return;audioOn();
   if(R.phase==='stage'||R.phase==='tree'){foul();return;}
   if(R.phase==='green'){R.react=R.ph-R.greenAt;R.phase='run';R.shake=0.3;buzz(30);updateBtn();return;}
   if(R.phase==='run')shift();}
@@ -490,10 +701,10 @@ act.addEventListener('pointerdown',press);
 act.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter')press(e);});
 document.addEventListener('keydown',e=>{if(cur!=='s-race')return;if(e.key===' '&&document.activeElement!==act)press(e);});
 function foul(){R.phase='foul';$('msg').textContent='ฟาวล์! ออกตัวก่อนไฟเขียว';buzz([60,60,60]);updateBtn();setTimeout(()=>finish(true),1300);}
-function startRace(){R=newRun();const l=R.look;
+function startRace(){R=newRun();const l=R.look;setSound(S.sound);
   $('spawn').style.opacity=1;$('spawn').innerHTML=`<small>รถคันใหม่ลงสนาม</small><b style="color:${l.liv==='gold'?'#FFD54A':'#fff'}">${esc(l.name)} #${l.no}</b><br><span class="rr" style="background:${l.rcol}">${l.rth}</span>`;
   $('msg').textContent='';updateBtn();sizeCanvases();lastT=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop);act.focus({preventScroll:true});}
-function stopRace(){cancelAnimationFrame(raf);raf=0;}
+function stopRace(){cancelAnimationFrame(raf);raf=0;audioOff();}
 function loop(now){const dt=Math.max(0,Math.min(0.05,(now-lastT)/1000));lastT=now;const r=R;if(!r)return;
   r.ph+=dt;
   if(r.phase==='stage'&&r.ph>1.9){r.phase='tree';$('spawn').style.opacity=0;}
@@ -502,6 +713,11 @@ function loop(now){const dt=Math.max(0,Math.min(0.05,(now-lastT)/1000));lastT=no
   if(r.phase==='run'&&!r.done){const n=Math.max(1,Math.ceil(dt/0.002));for(let i=0;i<n&&!r.done;i++)step(r,dt/n);
     if(r.done){r.phase='done';updateBtn();$('msg').textContent='เข้าเส้นชัย!';setTimeout(()=>finish(false),1000);}}
   r.flame=Math.max(0,r.flame-dt);r.shake=Math.max(0,r.shake-dt);
+  if(r.phase==='stage')r.rpm=1000+60*Math.sin(r.ph*9);
+  else if(r.phase==='tree'||r.phase==='green')r.rpm=Math.min(4000,r.rpm+dt*9000)-(r.rpm>=3950?Math.random()*350:0);
+  else if(r.phase==='foul')r.rpm=Math.max(1000,r.rpm-dt*4000);
+  else if(r.phase==='done')r.rpm=Math.max(1100,r.rpm-dt*3000);
+  audioTick(r.rpm,r.phase==='run'?(r.sh>0||r.lim?0.15:1):r.phase==='tree'||r.phase==='green'?0.55:0.1,r.spin&&r.phase==='run');
   draw(r,dt,now/1000);raf=requestAnimationFrame(loop);}
 
 /* ================= drawing the night strip ================= */
@@ -547,7 +763,7 @@ function draw(r,dt,T){
   drawCar(cx,carX,ground,ppm,r.look,r.b,{t:T,wheel:r.wheel,flame:r.flame});
   /* christmas tree */
   if(['stage','tree','green','foul'].includes(r.phase)||(r.phase==='run'&&r.x<25)){
-    const t0x=W-60,t0y=12;cx.fillStyle='#0B0F18';cx.fillRect(t0x,t0y,42,132);cx.fillRect(t0x+18,t0y+132,6,ground-t0y-158);
+    const t0x=W-60,t0y=54;cx.fillStyle='#0B0F18';cx.fillRect(t0x,t0y,42,132);cx.fillRect(t0x+18,t0y+132,6,ground-t0y-158);
     const lamp=(i,on,col)=>{if(on){const g=cx.createRadialGradient(t0x+21,t0y+18+i*30,2,t0x+21,t0y+18+i*30,26);g.addColorStop(0,col+'AA');g.addColorStop(1,col+'00');cx.fillStyle=g;cx.beginPath();cx.arc(t0x+21,t0y+18+i*30,26,0,7);cx.fill();}
       cx.fillStyle=on?col:'#262B36';cx.beginPath();cx.arc(t0x+21,t0y+18+i*30,10,0,7);cx.fill();};
     for(let i=0;i<3;i++)lamp(i,r.tree>i&&(r.phase==='tree'||r.phase==='green'),'#FFC21A');
@@ -594,6 +810,7 @@ function finish(isFoul){if(cur!=='s-race'||!R)return;const r=R;S.runs++;
   $('slip').innerHTML=h;
   $('rib').innerHTML=`<span class="rr" style="background:${r.look.rcol}">${r.look.rth}</span><span class="nm" style="color:${r.look.liv==='gold'?'#FFD54A':'#fff'}">${esc(r.look.name)}</span><span class="no">#${r.look.no} · รถคันที่ ${S.runs} ของคุณ</span>`;
   $('notes').innerHTML='<h3>วิศวกรวิเคราะห์รอบนี้</h3>'+(isFoul?`<li><b>ออกตัวก่อนไฟ</b> ไฟเหลืองติดครบสามดวงแล้วยังต้องรอไฟเขียวอีกครู่ ซึ่งสุ่มไม่เท่ากันทุกรอบ<span class="fix">จ้องไฟดวงล่างสุด แล้วกดเมื่อเห็นสีเขียวเท่านั้น</span></li>`:notes(r).map(n=>`<li>${n}</li>`).join(''));
+  $('eng').hidden=true;$('eng').innerHTML='';$('engbtn').hidden=isFoul;$('engbtn').setAttribute('aria-expanded','false');$('engbtn').textContent='โหมดจริงจัง: ดูการคำนวณ';
   $('save').disabled=isFoul;$('share').disabled=isFoul;$('savehint').hidden=true;
   renderColl();renderBest();show('s-result');}
 function summary(){const s=S.sel;return `${PARTS[0].c[s.eng][0]} kW · ${PARTS[1].c[s.mass][0]} kg · ${PARTS[2].c[s.tyre][0]} · ${PARTS[3].c[s.body][0]} · เฟืองท้าย ${S.fd.toFixed(1)}`;}
@@ -619,7 +836,10 @@ function renderBest(){const b=S.best&&S.best.name===S.name&&S.best.room===S.room
     <span class="t">${fmt(b.ms/1000)} s</span><span class="c">${b.code}</span><span class="n">${b.setup||''}</span><span class="live" data-live></span></div></div>`:'';
   $('best-result').innerHTML=html;$('best-start').innerHTML=html;tickLive();clearInterval(bestTimer);if(b)bestTimer=setInterval(tickLive,1000);}
 function tickLive(){const d=new Date(),p=v=>String(v).padStart(2,'0');document.querySelectorAll('[data-live]').forEach(e=>e.textContent=`สด ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`);}
-$('again').addEventListener('click',()=>show('s-race'));
+$('engbtn').addEventListener('click',()=>{const e=$('eng'),b=$('engbtn');if(!LAST||LAST.isFoul)return;const open=e.hidden;e.hidden=!open;b.setAttribute('aria-expanded',String(open));
+  b.textContent=open?'ซ่อนการคำนวณ':'โหมดจริงจัง: ดูการคำนวณ';if(open){e.innerHTML=engHTML(LAST.r);requestAnimationFrame(()=>drawEngCharts(LAST.r));
+    $('engsave').addEventListener('click',()=>busy($('engsave'),'กำลังสร้างรูป…',async()=>{const b=await makeEngImage();if(b)await saveFile(b,`me-drag-calc-${(S.name||'car').replace(/\s+/g,'')}-${fmt(LAST.total).replace('.','_')}.png`);}));}});
+$('again').addEventListener('click',()=>{audioOn();show('s-race');});
 $('tune').addEventListener('click',()=>show('s-garage'));
 
 /* result card: the spawned car under a spotlight */
@@ -664,6 +884,68 @@ async function makeShare(){const L0=LAST;if(!L0||L0.isFoul)return null;const r=L
 /* iPhone/iPad: the share sheet has "Save Image" (goes to Photos).
    Android and computers: the share sheet has no save option, so download the file instead. */
 const IOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+
+/* ================= engineer-mode long image (one file, so no multi-download prompt) ================= */
+const SEG=(()=>{try{return new Intl.Segmenter('th',{granularity:'word'});}catch(e){return null;}})();
+function wrapLines(c,text,maxW){const parts=SEG?[...SEG.segment(text)].map(x=>x.segment):text.split('');const out=[];let line='';
+  for(const p of parts){const t=line+p;if(c.measureText(t).width>maxW&&line){out.push(line.trimEnd());line=p.trimStart();}else line=t;}if(line)out.push(line);return out;}
+function para(c,text,x,y,maxW,font,col,lh){c.font=font;c.fillStyle=col;c.textAlign='left';const ls=wrapLines(c,text,maxW);ls.forEach((l,i)=>c.fillText(l,x,y+i*lh));return y+ls.length*lh;}
+function rich(c,str,x,y,size,col,weight){const parts=str.split(/_\{([^}]*)\}/);let cx2=x;c.fillStyle=col;c.textAlign='left';
+  parts.forEach((p,i)=>{if(!p)return;if(i%2){c.font=`${weight||600} ${size*.62}px "IBM Plex Mono","IBM Plex Sans Thai",monospace`;c.fillText(p,cx2,y+size*.22);cx2+=c.measureText(p).width+2;}
+    else{c.font=`${weight||600} ${size}px "IBM Plex Mono","IBM Plex Sans Thai",monospace`;c.fillText(p,cx2,y);cx2+=c.measureText(p).width;}});return y;}
+const strip=h=>h.replace(/<span class="fix">/g,' ||').replace(/<[^>]+>/g,'').replace(/&nbsp;/g,' ');
+async function makeEngImage(){const L0=LAST;if(!L0||L0.isFoul)return null;const r=L0.r,c0=r.c,m=c0.M;
+  try{await Promise.all(['800 italic 40px Prompt','600 30px "IBM Plex Mono"','500 26px "IBM Plex Sans Thai"','600 26px "IBM Plex Sans Thai"'].map(f=>document.fonts.load(f)));}catch(e){}
+  const W=1080,P=56,CWd=W-2*P,cv=document.createElement('canvas');cv.width=W;cv.height=12000;const c=cv.getContext('2d');
+  const bg=c.createLinearGradient(0,0,0,12000);bg.addColorStop(0,'#060D22');bg.addColorStop(1,'#10224E');c.fillStyle=bg;c.fillRect(0,0,W,12000);
+  let y=86;
+  c.fillStyle='#F2B705';c.font='700 32px Prompt, sans-serif';c.fillText('BUU ENG',P,y);c.fillStyle='#9DB0D6';c.font='500 26px "IBM Plex Sans Thai", sans-serif';c.fillText('ภาควิชาวิศวกรรมเครื่องกล มหาวิทยาลัยบูรพา',P+170,y);
+  y+=96;c.fillStyle='#EAF0FA';c.font='800 italic 72px Prompt, sans-serif';c.fillText('ME DRAG 400',P,y);
+  c.fillStyle='#FFD54A';c.font='800 italic 40px Prompt, sans-serif';c.fillText('โหมดจริงจัง: ดูการคำนวณ',P,y+56);
+  drawCar(c,W-P-170,y+30,70,r.look,r.b,{t:1});
+  y+=120;c.fillStyle='#EAF0FA';c.font='600 30px "IBM Plex Sans Thai", sans-serif';c.fillText(`${S.name}${S.room?'  ห้อง '+S.room:''}   รอบที่ ${L0.run}   ${r.look.name} #${r.look.no}`,P,y);
+  y+=84;c.fillStyle='#FFD54A';c.font='700 88px "IBM Plex Mono", monospace';c.fillText(fmt(L0.total)+' s',P,y);
+  c.textAlign='right';c.font='700 36px "IBM Plex Mono", monospace';c.fillText(r.code,W-P,y);c.fillStyle='#9DB0D6';c.font='500 22px "IBM Plex Sans Thai", sans-serif';c.fillText('รหัสยืนยัน',W-P,y-44);c.textAlign='left';
+  y=para(c,L0.setup,P,y+48,CWd,'500 26px "IBM Plex Sans Thai", sans-serif','#9DB0D6',36)+20;
+  const box=(h)=>{c.fillStyle='rgba(18,34,72,.85)';c.strokeStyle='#2A3F72';c.lineWidth=2;c.beginPath();c.roundRect?c.roundRect(P-16,y-44,CWd+32,h,18):c.rect(P-16,y-44,CWd+32,h);c.fill();c.stroke();};
+  const head=t=>{c.fillStyle='#FFD54A';c.font='700 36px Prompt, sans-serif';c.fillText(t,P,y);y+=50;};
+  const sp=chartSpecs(r),gn=graphNotes(r);
+  /* speed chart */
+  y+=30;head('ความเร็วตามเวลา');drawChart(c,P,y,CWd,420,sp.v[0],sp.v[1],2);y+=450;
+  y=para(c,gn.vNote,P,y,CWd,'500 26px "IBM Plex Sans Thai", sans-serif','#EAF0FA',38)+40;
+  /* force chart */
+  head('แรงตามเวลา');drawChart(c,P,y,CWd,460,sp.f[0],sp.f[1],2);y+=490;
+  [['#FF4D5E','แรงที่เครื่องส่งมาที่ล้อ'],['#2BD67B','แรงที่ยางยึดถนนได้สูงสุด'],['#5BB4FF','แรงต้านอากาศ']].reduce((x,[col,t])=>{c.fillStyle=col;c.fillRect(x,y-10,30,8);c.fillStyle='#9DB0D6';c.font='500 24px "IBM Plex Sans Thai", sans-serif';c.fillText(t,x+40,y);return x+60+c.measureText(t).width;},P);y+=50;
+  c.fillStyle='#FFD54A';c.font='600 28px Prompt, sans-serif';c.fillText('อ่านกราฟนี้',P,y);y+=44;
+  gn.read.forEach(([a,b])=>{y=para(c,a,P,y,CWd,'600 26px "IBM Plex Sans Thai", sans-serif','#EAF0FA',36);y=para(c,b,P+24,y,CWd-24,'500 24px "IBM Plex Sans Thai", sans-serif','#9DB0D6',34)+12;});
+  y+=10;c.fillStyle='#FFD54A';c.font='600 28px Prompt, sans-serif';c.fillText('จากกราฟของคุณ',P,y);y+=44;
+  gn.tips.forEach(t=>{const [a,b]=strip(t).split(' ||');y=para(c,a,P,y,CWd,'600 26px "IBM Plex Sans Thai", sans-serif','#FFD54A',36);if(b)y=para(c,'ลองปรับ: '+b,P+24,y,CWd-24,'500 25px "IBM Plex Sans Thai", sans-serif','#2BD67B',36);y+=14;});
+  /* worked calculations */
+  const peak=c0.T,Fw=peak*GEARS[0]*c0.FD*ETA/RW,L=r.log,s0=L.find(q=>q[2]>0.5)||L[0],a0=s0[10],N0=m*G*0.5+m*a0*0.2,Fm0=c0.mu*N0;
+  const s1=L.reduce((b,q)=>Math.abs(q[2]-27.78)<Math.abs(b[2]-27.78)?q:b,L[0]),a1=(s1[8]-s1[6]-s1[7])/m,vf=r.v,Fa=0.5*RHO*c0.CdA*vf*vf;
+  const vmax=i=>RED*2*Math.PI/60*RW/(GEARS[i]*c0.FD);
+  const CALC=[
+   ['1. แรงจากเครื่องยนต์ไปถึงล้อ','แรงบิดเครื่องถูกขยายด้วยเกียร์และเฟืองท้าย แล้วหารด้วยรัศมีล้อ',['F_{ล้อ} = T × i_{g} × i_{f} × η / r',`= ${n0(peak)} × ${GEARS[0]} × ${n1(c0.FD)} × ${ETA} / ${RW}`],`= ${n0(Fw)} N (เกียร์ 1)`,'T แรงบิดสูงสุด, i_g อัตราทดเกียร์ 1, i_f อัตราทดเฟืองท้าย, η ประสิทธิภาพการส่งกำลัง, r รัศมีล้อ'],
+   ['2. แรงที่ยางยึดถนนได้','ไม่เกินค่าสัมประสิทธิ์แรงเสียดทานคูณแรงกดบนล้อขับ ตอนเร่งน้ำหนักถ่ายไปล้อหลังเพิ่ม',['F_{สูงสุด} = μ × N','N = ½mg + 0.2ma',`N = ½(${n0(m)})(9.81) + 0.2(${n0(m)})(${n1(a0)}) = ${n0(N0)} N`],`F_{สูงสุด} = ${n1(c0.mu)} × ${n0(N0)} = ${n0(Fm0)} N`,
+     Fw>Fm0?`แรงจากเครื่อง ${n0(Fw)} N มากกว่าที่ยางรับได้ ล้อจึงฟรีตอนออกตัว`:`แรงจากเครื่อง ${n0(Fw)} N น้อยกว่าที่ยางรับได้ ล้อจึงไม่ฟรี`],
+   ['3. กฎข้อที่สองของนิวตัน',`ตอนรถวิ่ง ${n0(s1[2]*3.6)} km/h ในเกียร์ ${s1[3]+1}`,['a = (F_{ขับ} − F_{อากาศ} − F_{ยาง}) / m',`= (${n0(s1[8])} − ${n0(s1[6])} − ${n0(s1[7])}) / ${n0(m)}`],`= ${n2(a1)} m/s² (≈ ${n2(a1/G)} g)`,`F_ยาง = C_rr·m·g = ${c0.crr} × ${n0(m)} × 9.81`],
+   ['4. แรงต้านอากาศที่เส้นชัย','เพิ่มตามความเร็วยกกำลังสอง เร็วขึ้นสองเท่า แรงต้านเพิ่มสี่เท่า',['F_{อากาศ} = ½ ρ C_{d}A v²',`= ½ × ${RHO} × ${n2(c0.CdA)} × (${n1(vf)})²`],`= ${n0(Fa)} N`,`ต้องใช้กำลังต้านอากาศ P = F × v = ${n0(Fa*vf/1000)} kW จากเครื่อง ${c0.P} kW`],
+   ['5. ความเร็วสูงสุดของแต่ละเกียร์','ที่ 7,000 รอบ/นาที (ω = 733 rad/s)',['v = ω × r / (i_{g} × i_{f})'],GEARS.map((x,i)=>`G${i+1} ${n0(vmax(i)*3.6)}`).join('  ')+' km/h',
+     vmax(4)*3.6<vf*3.6+3?'เกียร์ 5 ใกล้ความเร็วที่เส้นชัย รถชนรอบสูงสุดก่อนถึงเส้นชัย':`เกียร์ 5 ไปได้ ${n0(vmax(4)*3.6)} km/h รถเข้าเส้นชัยที่ ${n0(vf*3.6)} km/h ยังมีรอบเหลือ`]];
+  y+=30;head('การคำนวณจากรอบนี้');
+  CALC.forEach(([t,d,eqs,res,note])=>{const y0=y;y+=6;c.fillStyle='#FFD54A';c.font='700 32px Prompt, sans-serif';c.fillText(t,P,y);y+=44;
+    y=para(c,d,P,y,CWd,'500 24px "IBM Plex Sans Thai", sans-serif','#9DB0D6',34)+10;
+    eqs.forEach(e=>{rich(c,e,P,y,30,'#CFE3FF',600);y+=48;});rich(c,res,P,y,32,'#FFD54A',700);y+=46;
+    y=para(c,note.replace(/_/g,''),P,y,CWd,'500 24px "IBM Plex Sans Thai", sans-serif','#EAF0FA',34)+30;
+    c.strokeStyle='#2A3F72';c.lineWidth=2;c.beginPath();c.moveTo(P,y-14);c.lineTo(W-P,y-14);c.stroke();y+=24;});
+  c.fillStyle='#5E77A8';c.font='500 22px "IBM Plex Mono", monospace';c.textAlign='right';c.fillText('me-buu.github.io/race.html',W-P,y+10);y+=40;
+  const out=document.createElement('canvas');out.width=W;out.height=Math.ceil(y);out.getContext('2d').drawImage(cv,0,0);
+  return await new Promise(res=>out.toBlob(b=>res(b),'image/png'));}
+async function saveFile(blob,name){
+  if(IOS){try{const f=new File([blob],name,{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'ME DRAG 400'});return;}}catch(e){if(e&&e.name==='AbortError')return;}
+    const u=URL.createObjectURL(blob);$('ov-img').src=u;$('ov-dl').href=u;$('ov-dl').download=name;$('ov').hidden=false;return;}
+  const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);}
+
 let shareBlob=null,shareName='';
 async function getShare(){if(shareBlob&&shareBlob.__for===LAST)return shareBlob;const b=await makeShare();if(b){b.__for=LAST;shareBlob=b;shareName=`me-drag-${(S.name||'car').replace(/\s+/g,'')}-${fmt(LAST.total).replace('.','_')}.png`;}return b;}
 const canShareFiles=b=>{try{return!!(navigator.canShare&&navigator.canShare({files:[new File([b],shareName,{type:'image/png'})]}));}catch(e){return false;}};
