@@ -143,6 +143,9 @@ main{max-width:480px;margin:0 auto}
 .notes li .fix{display:block;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);color:var(--text)}
 .notes li .fix::before{content:"ลองปรับ: ";font-weight:600;color:var(--green)}
 .acts{display:grid;gap:10px;margin-top:18px}
+.row2{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+.savehint{margin:0;font-size:13.5px;color:var(--muted);text-align:center}
+.savehint button{border:0;background:none;color:var(--blue);text-decoration:underline;padding:0;cursor:pointer;font-size:13.5px}
 .coll{margin:22px 0 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
 .coll span.k{font:700 12px var(--font-head);padding:3px 10px;border-radius:999px;color:#0A1430}
 .best{margin:18px 0 0;border-radius:12px;overflow:hidden;border:2px solid var(--gold);background:var(--panel)}
@@ -218,7 +221,8 @@ main{max-width:480px;margin:0 auto}
 <section class="screen" id="s-result" hidden>
   <div class="card"><canvas id="card"></canvas><div class="rib" id="rib"></div></div>
   <div class="slip" id="slip"></div>
-  <div class="acts" style="margin-top:22px"><button class="btn gold" id="save" type="button">บันทึกรูปลงเครื่อง</button></div>
+  <div class="acts" style="margin-top:22px"><div class="row2"><button class="btn gold" id="save" type="button">บันทึกรูป</button><button class="btn ghost" id="share" type="button">แชร์</button></div>
+    <p class="savehint" id="savehint" hidden>ถ้าไม่เห็นไฟล์ที่ดาวน์โหลด <button type="button" id="openimg">เปิดรูปแล้วกดค้างเพื่อบันทึก</button></p></div>
   <ul class="notes" id="notes"></ul>
   <div class="acts">
     <button class="btn ghost" id="again" type="button">วิ่งอีกรอบ</button>
@@ -590,7 +594,7 @@ function finish(isFoul){if(cur!=='s-race'||!R)return;const r=R;S.runs++;
   $('slip').innerHTML=h;
   $('rib').innerHTML=`<span class="rr" style="background:${r.look.rcol}">${r.look.rth}</span><span class="nm" style="color:${r.look.liv==='gold'?'#FFD54A':'#fff'}">${esc(r.look.name)}</span><span class="no">#${r.look.no} · รถคันที่ ${S.runs} ของคุณ</span>`;
   $('notes').innerHTML='<h3>วิศวกรวิเคราะห์รอบนี้</h3>'+(isFoul?`<li><b>ออกตัวก่อนไฟ</b> ไฟเหลืองติดครบสามดวงแล้วยังต้องรอไฟเขียวอีกครู่ ซึ่งสุ่มไม่เท่ากันทุกรอบ<span class="fix">จ้องไฟดวงล่างสุด แล้วกดเมื่อเห็นสีเขียวเท่านั้น</span></li>`:notes(r).map(n=>`<li>${n}</li>`).join(''));
-  $('save').disabled=isFoul;
+  $('save').disabled=isFoul;$('share').disabled=isFoul;$('savehint').hidden=true;
   renderColl();renderBest();show('s-result');}
 function summary(){const s=S.sel;return `${PARTS[0].c[s.eng][0]} kW · ${PARTS[1].c[s.mass][0]} kg · ${PARTS[2].c[s.tyre][0]} · ${PARTS[3].c[s.body][0]} · เฟืองท้าย ${S.fd.toFixed(1)}`;}
 function notes(r){const n=[],c=r.c,sel=S.sel;const Fw=c.T*GEARS[0]*c.FD*ETA/RW,Fg=c.mu*c.M*G*0.6;
@@ -657,15 +661,23 @@ async function makeShare(){const L0=LAST;if(!L0||L0.isFoul)return null;const r=L
   c.textAlign='right';c.fillStyle='#F2B705';c.font='700 34px "IBM Plex Mono", monospace';c.fillText(r.code,W-64,1300);
   c.fillStyle='#5E77A8';c.font='500 22px "IBM Plex Mono", monospace';c.fillText('me-buu.github.io/race.html',W-64,1336);
   return await new Promise(res=>cv.toBlob(b=>res(b),'image/png'));}
-$('save').addEventListener('click',async()=>{const btn=$('save');btn.disabled=true;btn.textContent='กำลังสร้างรูป…';
-  try{const blob=await makeShare();if(!blob)return;const fname=`me-drag-${(S.name||'car').replace(/\s+/g,'')}-${fmt(LAST.total).replace('.','_')}.png`;
-    const file=new File([blob],fname,{type:'image/png'});
-    /* phones and tablets: share sheet has "Save Image"; computers: save straight to Downloads */
-    const touch=matchMedia('(pointer:coarse)').matches;
-    if(touch&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:'ME DRAG 400'});return;}catch(e){if(e&&e.name==='AbortError')return;}}
-    if(!touch){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=fname;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000);return;}
-    const url=URL.createObjectURL(blob);$('ov-img').src=url;$('ov-dl').href=url;$('ov-dl').download=fname;$('ov').hidden=false;}
-  finally{btn.disabled=false;btn.textContent='บันทึกรูปลงเครื่อง';}});
+/* iPhone/iPad: the share sheet has "Save Image" (goes to Photos).
+   Android and computers: the share sheet has no save option, so download the file instead. */
+const IOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+let shareBlob=null,shareName='';
+async function getShare(){if(shareBlob&&shareBlob.__for===LAST)return shareBlob;const b=await makeShare();if(b){b.__for=LAST;shareBlob=b;shareName=`me-drag-${(S.name||'car').replace(/\s+/g,'')}-${fmt(LAST.total).replace('.','_')}.png`;}return b;}
+const canShareFiles=b=>{try{return!!(navigator.canShare&&navigator.canShare({files:[new File([b],shareName,{type:'image/png'})]}));}catch(e){return false;}};
+async function shareSheet(b){try{await navigator.share({files:[new File([b],shareName,{type:'image/png'})],title:'ME DRAG 400'});return true;}catch(e){return!!(e&&e.name==='AbortError');}}
+function download(b){const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=shareName;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);}
+function openOverlay(b){const u=URL.createObjectURL(b);$('ov-img').src=u;$('ov-dl').href=u;$('ov-dl').download=shareName;$('ov').hidden=false;}
+async function busy(btn,label,fn){btn.disabled=true;const t=btn.textContent;btn.textContent=label;try{await fn();}finally{btn.disabled=false;btn.textContent=t;}}
+$('save').addEventListener('click',()=>busy($('save'),'กำลังสร้างรูป…',async()=>{const b=await getShare();if(!b)return;
+  if(IOS&&canShareFiles(b)){if(await shareSheet(b))return;}
+  if(IOS){openOverlay(b);return;}
+  download(b);$('savehint').hidden=false;}));
+$('share').addEventListener('click',()=>busy($('share'),'กำลังสร้างรูป…',async()=>{const b=await getShare();if(!b)return;
+  if(canShareFiles(b)&&await shareSheet(b))return;openOverlay(b);}));
+$('openimg').addEventListener('click',async()=>{const b=await getShare();if(b)openOverlay(b);});
 $('ov-close').addEventListener('click',()=>{$('ov').hidden=true;});
 
 /* ================= teacher check (race.html#check) ================= */
